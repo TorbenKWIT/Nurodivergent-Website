@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Calm, low-saturation palette — see .claude/CLAUDE.md accessibility notes */
+@theme {
+  --color-brand-50: #f4f6f6;
+  --color-brand-100: #e3e9e8;
+  --color-brand-200: #c7d4d2;
+  --color-brand-300: #a2bab6;
+  --color-brand-400: #779e98;
+  --color-brand-500: #57827b;
+  --color-brand-600: #446963;
+  --color-brand-700: #395550;
+  --color-brand-800: #314542;
+  --color-brand-900: #2b3a38;
+
+  --color-accent-50: #f7f5fb;
+  --color-accent-100: #ece7f5;
+  --color-accent-200: #d5cbe9;
+  --color-accent-300: #b6a5d8;
+  --color-accent-400: #9a80c6;
+  --color-accent-500: #8267b0;
+  --color-accent-600: #6a5292;
+  --color-accent-700: #574377;
+  --color-accent-800: #493a63;
+  --color-accent-900: #3d3253;
+
+  --font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-white text-brand-900 antialiased;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* Visible focus states everywhere — never rely on the browser default alone */
+  :focus-visible {
+    outline: 3px solid var(--color-accent-600);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced-motion preference: no non-essential animation/transition */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50;
+    @apply focus:rounded-md focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-white;
+  }
+}
